@@ -292,9 +292,7 @@ public class IpcellMessageCreator {
 	 * @param port
 	 */
 	public void sendHeartBeat(String ip,int port){
-		IpcellMessage ipcellMessage = getIpcellMessage(ip,port,IpcellConstants.IPCELL_QUERY_IMSI);
-		ipcellMessage.setBody( getImsiBody("") );
-		IpcellSenderThread.put( ipcellMessage );
+		query( ip,port );
 	}
 
 	/**
