@@ -17,8 +17,8 @@ public class IpcellServerManager {
 
 	private static DatagramSocket datagramSocketServer;
 
-	private static int PORT = 9201;//控制台监听端口
-	private static int PORT_DEVICE = 9202;//设备监听端口
+	private static int PORT = 9202;//控制台监听端口
+	private static int PORT_DEVICE = 9201;//设备监听端口
 	private static final int TIME_OUT = 3*60*1000;
 
 	public static boolean isStarted = false;
