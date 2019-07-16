@@ -17,8 +17,8 @@ public class IpcellServerManager {
 
 	private static DatagramSocket datagramSocketServer;
 
-	private static int PORT = 9202;
-	private static int PORT_SERVER = 9201;
+	private static int PORT = 9201;//控制台监听端口
+	private static int PORT_DEVICE = 9202;//设备监听端口
 	private static final int TIME_OUT = 3*60*1000;
 
 	public static boolean isStarted = false;
@@ -49,7 +49,7 @@ public class IpcellServerManager {
 	public static DatagramSocket getDatagramSocket() {
 		try{
 			if(datagramSocketServer==null){
-				datagramSocketServer = new DatagramSocket( PORT_SERVER );
+				datagramSocketServer = new DatagramSocket( PORT_DEVICE );
 				datagramSocketServer.setSoTimeout( TIME_OUT );
 				datagramSocketServer.setReceiveBufferSize( 1024*20000 );
 			}
