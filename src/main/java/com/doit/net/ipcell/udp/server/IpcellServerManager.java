@@ -15,10 +15,8 @@ public class IpcellServerManager {
 
 	private static DatagramSocket datagramSocket;
 
-	private static DatagramSocket datagramSocketServer;
 
 	private static int PORT = 9202;//控制台监听端口
-	private static int PORT_DEVICE = 9201;//设备监听端口
 	private static final int TIME_OUT = 3*60*1000;
 
 	public static boolean isStarted = false;
@@ -47,18 +45,7 @@ public class IpcellServerManager {
 	private static DatagramSocket clientSocket = null;
 
 	public static DatagramSocket getDatagramSocket() {
-		try{
-			if(datagramSocketServer==null){
-				datagramSocketServer = new DatagramSocket( PORT_DEVICE );
-				datagramSocketServer.setSoTimeout( TIME_OUT );
-				datagramSocketServer.setReceiveBufferSize( 1024*20000 );
-			}
-
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		//return datagramSocket;
-		return datagramSocketServer;
+		return datagramSocket;
 	}
 
 
@@ -83,9 +70,7 @@ public class IpcellServerManager {
 			if(datagramSocket.isClosed()==false){
 				datagramSocket.close();
 			}
-			if(datagramSocketServer.isClosed()==false){
-				datagramSocketServer.close();
-			}
+
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -97,7 +82,7 @@ public class IpcellServerManager {
 	 */
 	public static void send(DatagramPacket packet){
 		try {
-			datagramSocketServer.send( packet );
+			datagramSocket.send( packet );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
