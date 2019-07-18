@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.nio.ByteBuffer;
 
 /**
@@ -36,7 +37,10 @@ public class IpcellReceiverThread extends Thread {
 				if(datagramPacket==null){
 					continue;
 				}
-				IpcellServerManager.receive( datagramPacket );
+				DatagramSocket socket = IpcellServerManager.getDatagramSocket();
+				socket.setSoTimeout( 2000 );
+				socket.receive( datagramPacket );
+				//IpcellServerManager.receive( datagramPacket );
 				if(datagramPacket==null){
 					continue;
 				}
