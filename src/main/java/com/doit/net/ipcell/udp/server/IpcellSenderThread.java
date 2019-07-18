@@ -39,14 +39,11 @@ public class IpcellSenderThread extends Thread {
 				SocketAddress socketAddress = ipcellMessage.getSocketAddress();
 				byte[] bytes =ipcellMessage.getBytes(ipcellMessage);
 				log.info( "send code:{}",ipcellMessage.getCode() );
-				System.out.println(bytes.length);
 				DatagramPacket packet = new DatagramPacket( bytes, bytes.length, socketAddress );
 				DatagramSocket socket = getSocket();
 				if(socket==null){
 					log.warn( "Not found ipcell socket:{}",ipcellMessage.getInetSocketAddress().getPort() );
 				}
-				System.out.println(socket.getPort()+"");
-				System.out.println(socket.getLocalSocketAddress());
 				socket.send( packet );
 			}catch (Exception e){
 				e.printStackTrace();
@@ -55,7 +52,7 @@ public class IpcellSenderThread extends Thread {
 	}
 
 	public static DatagramSocket getSocket(){
-		return getDatagramSocket();
+		return IpcellServerManager.getDatagramSocket();
 	}
 
 	private static int PORT = 9201;
@@ -104,8 +101,9 @@ public class IpcellSenderThread extends Thread {
 
 
 		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_RUN_STATE) ,new GetRunstateHandler() );
-		IpcellMessageCreator.setRedirect3G( IpcellConstants.IP,IpcellConstants.PORT,"10663");
-		IpcellMessageCreator.queryInitParam( IpcellConstants.IP,IpcellConstants.PORT );
+		//IpcellMessageCreator.setRedirect3G( IpcellConstants.IP,IpcellConstants.PORT,"10663");
+		//IpcellMessageCreator.queryInitParam( IpcellConstants.IP,IpcellConstants.PORT );
+		IpcellMessageCreator.sendHeartBeat( IpcellConstants.IP,IpcellConstants.PORT );
 		//IpcellMessageCreator.setParam( IpcellConstants.IP,IpcellConstants.PORT,"460","01","10688","158","0","321" );
 		//IpcellMessageCreator.queryPsc( IpcellConstants.IP,IpcellConstants.PORT  );
 		//运行状态 0x0084 0x0080 0x0081
