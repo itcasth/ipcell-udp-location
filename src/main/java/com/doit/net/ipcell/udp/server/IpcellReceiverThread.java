@@ -37,10 +37,7 @@ public class IpcellReceiverThread extends Thread {
 				if(datagramPacket==null){
 					continue;
 				}
-				DatagramSocket socket = IpcellServerManager.getDatagramSocket();
-				socket.setSoTimeout( 2000 );
-				socket.receive( datagramPacket );
-				//IpcellServerManager.receive( datagramPacket );
+				IpcellServerManager.receive( datagramPacket );
 				if(datagramPacket==null){
 					continue;
 				}

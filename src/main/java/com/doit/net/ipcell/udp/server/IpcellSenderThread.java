@@ -52,7 +52,7 @@ public class IpcellSenderThread extends Thread {
 	}
 
 	public static DatagramSocket getSocket(){
-		return IpcellServerManager.getDatagramSocket();
+		return getDatagramSocket();
 	}
 
 	private static int PORT = 9201;
