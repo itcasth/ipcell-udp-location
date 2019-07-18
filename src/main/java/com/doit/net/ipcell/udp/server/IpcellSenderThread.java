@@ -1,11 +1,16 @@
 package com.doit.net.ipcell.udp.server;
 
 import com.doit.net.ipcell.udp.base.IpcellMessage;
+import com.doit.net.ipcell.udp.constants.IpcellConstants;
+import com.doit.net.ipcell.udp.handler.*;
+import com.doit.net.ipcell.udp.message.IpcellMessageCreator;
+import com.doit.net.ipcell.udp.service.IpcellServiceManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.SocketAddress;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -31,13 +36,17 @@ public class IpcellSenderThread extends Thread {
 		while (true){
 			try {
 				IpcellMessage ipcellMessage = senderQueue.take();
-				byte[] bytes = ipcellMessage.getBytes();
+				SocketAddress socketAddress = ipcellMessage.getSocketAddress();
+				byte[] bytes =ipcellMessage.getBytes(ipcellMessage);
 				log.info( "send code:{}",ipcellMessage.getCode() );
-				DatagramPacket packet = new DatagramPacket( bytes, bytes.length, ipcellMessage.getSocketAddress() );
+				System.out.println(bytes.length);
+				DatagramPacket packet = new DatagramPacket( bytes, bytes.length, socketAddress );
 				DatagramSocket socket = getSocket();
 				if(socket==null){
 					log.warn( "Not found ipcell socket:{}",ipcellMessage.getInetSocketAddress().getPort() );
 				}
+				System.out.println(socket.getPort()+"");
+				System.out.println(socket.getLocalSocketAddress());
 				socket.send( packet );
 			}catch (Exception e){
 				e.printStackTrace();
@@ -46,8 +55,26 @@ public class IpcellSenderThread extends Thread {
 	}
 
 	public static DatagramSocket getSocket(){
-		return IpcellServerManager.getDatagramSocket();
+		return getDatagramSocket();
 	}
+
+	private static int PORT = 9201;
+	private static DatagramSocket datagramSocket;
+	private static final int TIME_OUT = 3*60*1000;
+
+	private static DatagramSocket getDatagramSocket(){
+		try{
+			if(datagramSocket==null){
+				datagramSocket = new DatagramSocket( PORT );
+				datagramSocket.setSoTimeout( TIME_OUT );
+				datagramSocket.setReceiveBufferSize( 1024*20000 );
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return datagramSocket;
+	}
+
 
 	public static void put(IpcellMessage ipcellMessage){
 		try {
@@ -56,5 +83,34 @@ public class IpcellSenderThread extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void main(String[] args) {
+		IpcellServerManager.startListener();
+
+		IpcellServiceManager.addCallBack( String.valueOf( IpcellConstants.IPCELL_QUERY_ACK ),new BaseHandler() );
+		IpcellServiceManager.addCallBack( String.valueOf( IpcellConstants.IPCELL_CLOSE_RF_ACK ),new CloseRfAckHandler() );
+		IpcellServiceManager.addCallBack( String.valueOf( IpcellConstants.IPCELL_OPEN_RF_ACK ),new OpenRfAckHandler() );
+		IpcellServiceManager.addCallBack( String.valueOf( IpcellConstants.IPCELL_REBOOT_ACK ),new RebootAckHandler() );
+		IpcellServiceManager.addCallBack( String.valueOf( IpcellConstants.IPCELL_REPORT ),new UeReportHandler() );
+
+		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_WORK_FREQ) ,new GetFcnHandler() );
+		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_MCC) ,new GetMccHandler() );
+		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_MNC) ,new GetMncHandler() );
+		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_TAC) ,new GetTacHandler() );
+		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_SET_POWER) ,new GetPowerHandler() );
+		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_PSC) ,new GetPscHandler() );
+
+
+
+		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_RUN_STATE) ,new GetRunstateHandler() );
+		IpcellMessageCreator.setRedirect3G( IpcellConstants.IP,IpcellConstants.PORT,"10663");
+		IpcellMessageCreator.queryInitParam( IpcellConstants.IP,IpcellConstants.PORT );
+		//IpcellMessageCreator.setParam( IpcellConstants.IP,IpcellConstants.PORT,"460","01","10688","158","0","321" );
+		//IpcellMessageCreator.queryPsc( IpcellConstants.IP,IpcellConstants.PORT  );
+		//运行状态 0x0084 0x0080 0x0081
+		//IpcellMessageCreator.setParam( IpcellConstants.IP,IpcellConstants.PORT,"460","01","10688","158","0","321" );
+
+
 	}
 }

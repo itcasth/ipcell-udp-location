@@ -402,4 +402,63 @@ public class ByteUtils {
 //        PrintUtils.printHex(int2byte(109));
 //        System.out.println(Integer.toBinaryString(-109));
     }
+
+    public static byte[] subBytes(byte[] src, int begin, int count) {
+        byte[] bs = new byte[count];
+        System.arraycopy(src, begin, bs, 0, count);
+        return bs;
+    }
+
+    public static int bytesToInt(byte b[], int offset) {
+        return    b[offset+3] & 0xff
+                | (b[offset+2] & 0xff) << 8
+                | (b[offset+1] & 0xff) << 16
+                | (b[offset] & 0xff) << 24;
+    }
+
+    /**
+     * 拼接字节数组
+     * @param data1
+     * @param data2
+     * @return
+     */
+    public static byte[] getContactByte(byte[] data1, byte[] data2)
+    {
+        byte[] data3 = new byte[data1.length + data2.length];
+        System.arraycopy(data1,0,data3,0,data1.length);
+        System.arraycopy(data2,0,data3,data1.length,data2.length);
+        return data3;
+
+    }
+
+    /**
+     * 字节数组转16进制
+     * @param bytes 需要转换的byte数组
+     * @return 转换后的Hex字符串
+     */
+    public static String bytesToHex(byte[] bytes) {
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < bytes.length; i++) {
+            String hex = Integer.toHexString(bytes[i] & 0xFF);
+            if(hex.length() < 2){
+                sb.append(0);
+            }
+            sb.append(hex);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 字节转十六进制
+     * @param b 需要进行转换的byte字节
+     * @return 转换后的Hex字符串
+     */
+    public static String byteToHex(byte b){
+        String hex = Integer.toHexString(b & 0xFF);
+        if(hex.length() < 2){
+            hex = "0" + hex;
+        }
+        return hex;
+    }
+
 }

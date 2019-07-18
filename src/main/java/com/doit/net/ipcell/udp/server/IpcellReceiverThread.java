@@ -1,10 +1,13 @@
 package com.doit.net.ipcell.udp.server;
 
 import com.doit.net.ipcell.udp.base.IpcellMessage;
+import com.doit.net.ipcell.udp.constants.IpcellConstants;
+import com.doit.net.ipcell.udp.utils.ByteUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.DatagramPacket;
+import java.nio.ByteBuffer;
 
 /**
  * Created by wly on 2019/7/11.
@@ -41,8 +44,9 @@ public class IpcellReceiverThread extends Thread {
 				IpcellMessage ipcellMessage = new IpcellMessage(  );
 				byte[] data = datagramPacket.getData();
 				ipcellMessage.data = data;
+				data = ByteUtils.ReversEndian( data, 15, true );
+				ipcellMessage = ipcellMessage.decode( data,ipcellMessage );
 				ipcellMessage.setSocketAddress( datagramPacket.getSocketAddress() );
-				ipcellMessage.decode();
 				log.info( "Receive IPCELL message:{}",ipcellMessage.toString() );
 				IpcellWorkThread.push( ipcellMessage );
 			}catch (Exception e){
