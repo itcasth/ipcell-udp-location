@@ -101,9 +101,10 @@ public class IpcellSenderThread extends Thread {
 
 
 		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_RUN_STATE) ,new GetRunstateHandler() );
+		IpcellMessageCreator.startLocate( IpcellConstants.IP,IpcellConstants.PORT,"460052125622110" );
 		//IpcellMessageCreator.setRedirect3G( IpcellConstants.IP,IpcellConstants.PORT,"10663");
 		//IpcellMessageCreator.queryInitParam( IpcellConstants.IP,IpcellConstants.PORT );
-		IpcellMessageCreator.sendHeartBeat( IpcellConstants.IP,IpcellConstants.PORT );
+		//IpcellMessageCreator.sendHeartBeat( IpcellConstants.IP,IpcellConstants.PORT );
 		//IpcellMessageCreator.setParam( IpcellConstants.IP,IpcellConstants.PORT,"460","01","10688","158","0","321" );
 		//IpcellMessageCreator.queryPsc( IpcellConstants.IP,IpcellConstants.PORT  );
 		//运行状态 0x0084 0x0080 0x0081
