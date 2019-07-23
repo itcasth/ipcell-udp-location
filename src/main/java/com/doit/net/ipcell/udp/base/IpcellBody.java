@@ -3,7 +3,7 @@ package com.doit.net.ipcell.udp.base;
 /**
  * Created by wly on 2019/7/15.
  */
-public class IpcellBody {
+public class IpcellBody extends BaseHeader{
 	private int length;//长度
 	private int code;//命令编号
 	private String content;//内容
