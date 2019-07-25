@@ -1,9 +1,6 @@
 package com.doit.net.test;
 
 
-import com.doit.net.ipcell.udp.base.IpcellBody;
-import com.doit.net.ipcell.udp.base.IpcellMessage;
-
 /**
  * Created by wly on 2019/7/19.
  */

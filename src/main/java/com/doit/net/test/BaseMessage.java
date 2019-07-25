@@ -1,11 +1,9 @@
 package com.doit.net.test;
 
-import com.doit.net.ipcell.udp.base.BaseHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.net.SocketAddress;
 import java.util.List;
 
 /**

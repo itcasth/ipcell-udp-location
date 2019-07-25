@@ -1,8 +1,8 @@
 package com.doit.net.test;
 
-import com.doit.net.ipcell.udp.base.IpcellMessage;
-import com.doit.net.ipcell.udp.utils.BytesUtils;
-import com.doit.net.ipcell.udp.utils.StringUtils;
+import com.doit.net.ipcell.base.IpcellMessage;
+import com.doit.net.ipcell.utils.BytesUtils;
+import com.doit.net.ipcell.utils.StringUtils;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
