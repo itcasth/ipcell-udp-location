@@ -3,8 +3,6 @@ package com.doit.net.ipcell.base;
 import com.doit.net.ipcell.utils.BytesUtils;
 import com.doit.net.ipcell.utils.Packet;
 import com.doit.net.ipcell.utils.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -15,7 +13,6 @@ import java.util.List;
  * Ipcell消息
  */
 public class IpcellMessage extends BaseHeader implements Serializable{
-	private final static Logger log = LoggerFactory.getLogger(IpcellMessage.class);
 	private int length;//长度
 	private byte version;//版本号
 	private int deviceNo;//设备编号

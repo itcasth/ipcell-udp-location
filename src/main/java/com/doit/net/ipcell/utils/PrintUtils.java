@@ -1,7 +1,5 @@
 package com.doit.net.ipcell.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -14,12 +12,10 @@ import java.util.Date;
  */
 public class PrintUtils {
 
-	private static final Logger log = LoggerFactory.getLogger(PrintUtils.class);
     private static final String TAG = PrintUtils.class.getSimpleName();
-    public static boolean isDebug= log.isTraceEnabled();
+    public static boolean isDebug= false;
     static public void printStr(String tag, String body)
     {
-        log.debug(tag+" "+body);
 //        if(isDebug)
 //            System.out.println(tag+" "+body);
 //          Log.i(tag, body);

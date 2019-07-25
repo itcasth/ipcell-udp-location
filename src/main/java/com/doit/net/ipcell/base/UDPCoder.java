@@ -2,8 +2,6 @@ package com.doit.net.ipcell.base;
 
 import com.doit.net.ipcell.utils.BytesUtils;
 import com.doit.net.ipcell.utils.ProtUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,7 +11,6 @@ import java.io.IOException;
  */
 public abstract class UDPCoder {
 
-    private final static Logger log = LoggerFactory.getLogger(UDPCoder.class);
 
     public byte[] data;
     public int start,len;
@@ -92,10 +89,8 @@ public abstract class UDPCoder {
             temp.data = d;
             temp.start = start;
             temp.len = d.length;
-            log.trace(String.format("read object:%s,_data size:%s,start:%s",clz.getName(),d.length,start));
             return (T)temp.decode();
         } catch (Exception e) {
-            log.error("read _data error",e);
         }
         return null;
     }
@@ -154,7 +149,6 @@ public abstract class UDPCoder {
         try {
             mByteOutStream.write(ProtUtils.int2Byte( BytesUtils.htonl(i)));
         } catch (IOException e) {
-            log.error("write error",e);
         }
     }
 
@@ -162,7 +156,6 @@ public abstract class UDPCoder {
         try {
             mByteOutStream.write(ProtUtils.int2Byte( BytesUtils.htonl( BytesUtils.intToByte(i))));
         } catch (IOException e) {
-            log.error("write error",e);
         }
     }
 
@@ -171,7 +164,6 @@ public abstract class UDPCoder {
 //            mByteOutStream.write(ProtUtils.short2Byte(BytesUtils.htons(s)));
             mByteOutStream.write(ProtUtils.short2Byte(s));
         } catch (IOException e) {
-            log.error("write error",e);
         }
     }
 
@@ -181,7 +173,6 @@ public abstract class UDPCoder {
             mByteOutStream.write(ProtUtils.short2Byte( BytesUtils.htons(s)));
 //            mByteOutStream.write(ProtUtils.short2Byte(s));
         } catch (IOException e) {
-            log.error("write error",e);
         }
     }
 
@@ -196,7 +187,6 @@ public abstract class UDPCoder {
             System.arraycopy(temp,0,sBytes,0,temp.length);
             mByteOutStream.write(sBytes);
         } catch (IOException e) {
-            log.error("write error",e);
         }
     }
 
@@ -222,28 +212,23 @@ public abstract class UDPCoder {
         try {
             mByteOutStream.write(b);
         } catch (IOException e) {
-            log.error("write error",e);
         }
     }
     public void writeByte(byte b){
         try {
             mByteOutStream.write(b);
         } catch (Exception e) {
-            log.error("write error",e);
         }
     }
 
     public void writeObject(UDPCoder p){
         try {
             if(p == null){
-                log.error("write object error object is null");
                 return;
             }
             byte[] b = p.encode();
-            log.trace(String.format("write object:%s, size:%s",p.getClass().getName(),b.length));
             mByteOutStream.write(p.getBytes());
         } catch (Exception e) {
-            log.error("write error",e);
         }
     }
 

@@ -1,7 +1,5 @@
 package com.doit.net.ipcell.server;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.*;
@@ -11,7 +9,6 @@ import java.net.*;
  * ipcell服务管理器
  */
 public class IpcellServerManager {
-	private final static Logger log = LoggerFactory.getLogger(IpcellServerManager.class);
 
 	private static DatagramSocket datagramSocket;
 
@@ -31,9 +28,9 @@ public class IpcellServerManager {
 			new IpcellReceiverThread().start();
 			new IpcellWorkThread().start();
 			new IpcellSenderThread().start();
-			log.info( "【IPCELL-Server】 started on port:{}",PORT );
+			System.out.println( "【IPCELL-Server】 started on port:"+PORT );
 		}catch (Exception e){
-			log.error( "【IPCELL-Server】 启动异常，端口:{},异常原因：",port,e.getMessage() );
+			System.out.println( "【IPCELL-Server】 启动异常,异常原因："+e.getMessage() );
 		}
 	}
 

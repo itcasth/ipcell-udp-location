@@ -2,8 +2,6 @@ package com.doit.net.ipcell.server;
 
 import com.doit.net.ipcell.base.IpcellMessage;
 import com.doit.net.ipcell.service.IpcellServiceManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +14,6 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class IpcellWorkThread extends Thread{
 
-	private static final Logger log = LoggerFactory.getLogger(IpcellWorkThread.class);
 
 	private static BlockingQueue<IpcellMessage> workQueue = new LinkedBlockingQueue<IpcellMessage>();
 
@@ -32,7 +29,6 @@ public class IpcellWorkThread extends Thread{
 	}
 
 	private void init() {
-		log.info( "ipcell udp server work thread started" );
 		while (IpcellServerManager.isStarted){
 			try {
 				IpcellMessage ipcellMessage = workQueue.take();
@@ -45,7 +41,6 @@ public class IpcellWorkThread extends Thread{
 
 	public static void push(IpcellMessage ipcellMessage){
 		try {
-			log.info( "add ipcell work queue header:{}",ipcellMessage.getCode() );
 			workQueue.put( ipcellMessage );
 		} catch (InterruptedException e) {
 			e.printStackTrace();

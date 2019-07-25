@@ -1,7 +1,5 @@
 package com.doit.net.test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,16 +8,12 @@ import java.util.List;
  * Created by wly on 2019/7/19.
  */
 public class BaseMessage extends BaseSocket implements Serializable {
-	private final static Logger log = LoggerFactory.getLogger(BaseMessage .class);
 	private int length;//长度
 	private short name;//设备名称
 	private byte code;//命令编号
 	private byte[] data;//用于存放接收的字节数组
 	List<Body> body;//消息体
 
-	public static Logger getLog() {
-		return log;
-	}
 
 	public int getLength() {
 		return length;
