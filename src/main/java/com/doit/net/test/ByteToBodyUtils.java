@@ -1,7 +1,7 @@
 package com.doit.net.test;
 
 import com.doit.net.ipcell.udp.base.IpcellMessage;
-import com.doit.net.ipcell.udp.utils.ByteUtils;
+import com.doit.net.ipcell.udp.utils.BytesUtils;
 import com.doit.net.ipcell.udp.utils.StringUtils;
 
 import java.nio.ByteBuffer;
@@ -67,7 +67,7 @@ public class ByteToBodyUtils {
 	public List<Body> getBodyList(BaseMessage baseMessage){
 		List<Body> list = new ArrayList<Body>(  );
  		byte[] data = baseMessage.getData();
-		data = ByteUtils.ReversEndian( data, data.length, true );//大小端转换
+		data = BytesUtils.ReversEndian( data, data.length, true );//大小端转换
 		int totalLen = IpcellMessage.getLenth( data, 0, 4 );
 		while (baseMessageLength < totalLen){
 			int l = getIntegerContent( data, baseMessageLength, 2 );//返回指定位置的消息体对应的长度
@@ -105,7 +105,7 @@ public class ByteToBodyUtils {
 		String str = "";
 		if(data!=null && data.length>0){
 			for (int i = 0;i<data.length;i++){
-				str += convertHexToString(ByteUtils.byteToHex( data[i] ));
+				str += convertHexToString( BytesUtils.byteToHex( data[i] ));
 			}
 		}
 		return str;
@@ -153,7 +153,7 @@ public class ByteToBodyUtils {
 		String hex = "";
 		if(data!=null && data.length>0){
 			for (int i = data.length-1;i>=0;i--){
-				hex += ByteUtils.byteToHex( data[i] );
+				hex += BytesUtils.byteToHex( data[i] );
 			}
 		}
 		if(StringUtils.isNotBlank( hex )){

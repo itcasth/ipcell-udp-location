@@ -4,7 +4,7 @@ import com.doit.net.ipcell.udp.base.IpcellBody;
 import com.doit.net.ipcell.udp.base.IpcellMessage;
 import com.doit.net.ipcell.udp.service.IHandlerFinish;
 import com.doit.net.ipcell.udp.service.IpcellServiceManager;
-import com.doit.net.ipcell.udp.utils.ByteUtils;
+import com.doit.net.ipcell.udp.utils.BytesUtils;
 
 /**
  * Created by wly on 2019/7/18.
@@ -14,7 +14,7 @@ public class UeReportHandler implements IHandlerFinish<IpcellMessage> {
 	public void workFinish(IpcellMessage body) {
 		System.out.println("UE上报处理器Handler");
 		byte[] data = body.data;
-		data = ByteUtils.ReversEndian( data, data.length, true );//大小端转换
+		data = BytesUtils.ReversEndian( data, data.length, true );//大小端转换
 		int totalLen = IpcellMessage.getLenth( data, 0, 2 );
 		int lenMax = 15;
 		String imsi = "";

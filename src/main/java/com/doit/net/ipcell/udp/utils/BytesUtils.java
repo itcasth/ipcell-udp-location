@@ -4,7 +4,7 @@ package com.doit.net.ipcell.udp.utils;
 /**
  * Created by wiker on 2016/3/15.
  */
-public class ByteUtils {
+public class BytesUtils {
 
 
     /**

@@ -1,6 +1,6 @@
 package com.doit.net.ipcell.udp.base;
 
-import com.doit.net.ipcell.udp.utils.ByteUtils;
+import com.doit.net.ipcell.udp.utils.BytesUtils;
 import com.doit.net.ipcell.udp.utils.Packet;
 import com.doit.net.ipcell.udp.utils.StringUtils;
 import org.slf4j.Logger;
@@ -171,7 +171,7 @@ public class IpcellMessage extends BaseHeader implements Serializable{
 	 * @return
 	 */
 	public static IpcellMessage decode(byte[] data,IpcellMessage ipcellMessage){
-		data = ByteUtils.ReversEndian( data, 15, true );
+		data = BytesUtils.ReversEndian( data, 15, true );
 		ByteBuffer wrap = ByteBuffer.wrap( data,13,1 );
 		ipcellMessage.setCode( wrap.get() );
 		return ipcellMessage;
@@ -240,7 +240,7 @@ public class IpcellMessage extends BaseHeader implements Serializable{
 		String hex = "0x";
 		if(data!=null && data.length>0){
 			for (int i = data.length-1;i>=0;i--){
-				hex += ByteUtils.byteToHex( data[i] );
+				hex += BytesUtils.byteToHex( data[i] );
 			}
 		}
 		return hex;
@@ -257,7 +257,7 @@ public class IpcellMessage extends BaseHeader implements Serializable{
 		String hex = "";
 		if(data!=null && data.length>0){
 			for (int i = data.length-1;i>=0;i--){
-				hex += ByteUtils.byteToHex( data[i] );
+				hex += BytesUtils.byteToHex( data[i] );
 			}
 		}
 		if(StringUtils.isNotBlank( hex )){
@@ -275,7 +275,7 @@ public class IpcellMessage extends BaseHeader implements Serializable{
 		String str = "";
 		if(data!=null && data.length>0){
 			for (int i = 0;i<data.length;i++){
-				str += convertHexToString(ByteUtils.byteToHex( data[i] ));
+				str += convertHexToString( BytesUtils.byteToHex( data[i] ));
 			}
 		}
 		return str;

@@ -1,6 +1,6 @@
 package com.doit.net.ipcell.udp.base;
 
-import com.doit.net.ipcell.udp.utils.ByteUtils;
+import com.doit.net.ipcell.udp.utils.BytesUtils;
 import com.doit.net.ipcell.udp.utils.ProtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,7 +122,7 @@ public abstract class UDPCoder {
         byte b = data[pos+start];
         pos += 1;
         dataLen +=1;
-        return ByteUtils.byte2Int(b);
+        return BytesUtils.byte2Int(b);
     }
 
     public byte readByte(){
@@ -152,7 +152,7 @@ public abstract class UDPCoder {
 
     public void writeInt(int i){
         try {
-            mByteOutStream.write(ProtUtils.int2Byte(ByteUtils.htonl(i)));
+            mByteOutStream.write(ProtUtils.int2Byte( BytesUtils.htonl(i)));
         } catch (IOException e) {
             log.error("write error",e);
         }
@@ -160,7 +160,7 @@ public abstract class UDPCoder {
 
     public void writeInt2Byte(int i){
         try {
-            mByteOutStream.write(ProtUtils.int2Byte(ByteUtils.htonl(ByteUtils.intToByte(i))));
+            mByteOutStream.write(ProtUtils.int2Byte( BytesUtils.htonl( BytesUtils.intToByte(i))));
         } catch (IOException e) {
             log.error("write error",e);
         }
@@ -168,7 +168,7 @@ public abstract class UDPCoder {
 
     public void writeShort(short s){
         try {
-//            mByteOutStream.write(ProtUtils.short2Byte(ByteUtils.htons(s)));
+//            mByteOutStream.write(ProtUtils.short2Byte(BytesUtils.htons(s)));
             mByteOutStream.write(ProtUtils.short2Byte(s));
         } catch (IOException e) {
             log.error("write error",e);
@@ -178,7 +178,7 @@ public abstract class UDPCoder {
 
     public void writeShortHtons(short s){
         try {
-            mByteOutStream.write(ProtUtils.short2Byte(ByteUtils.htons(s)));
+            mByteOutStream.write(ProtUtils.short2Byte( BytesUtils.htons(s)));
 //            mByteOutStream.write(ProtUtils.short2Byte(s));
         } catch (IOException e) {
             log.error("write error",e);
