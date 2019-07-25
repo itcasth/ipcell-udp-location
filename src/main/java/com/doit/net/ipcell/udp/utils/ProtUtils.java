@@ -13,7 +13,7 @@ public class ProtUtils {
 	{
 		byte[] tmp=new byte[4];
 		System.arraycopy(data, pos, tmp, 0, 4);
-		return ByteUtils.htonl(((tmp[3]&0xFF)<<24) | ((tmp[2]&0xFF)<<16) | ((tmp[1]&0xFF)<<8) | (tmp[0]&0xFF));
+		return BytesUtils.htonl(((tmp[3]&0xFF)<<24) | ((tmp[2]&0xFF)<<16) | ((tmp[1]&0xFF)<<8) | (tmp[0]&0xFF));
 	}
 
 	public static int readInt(byte[] data, int pos)
@@ -71,7 +71,7 @@ public class ProtUtils {
 	
 	public static int readShortHtons(byte[] data, int pos)
 	{
-		return ByteUtils.htons((short)readShort(data,pos));
+		return BytesUtils.htons((short)readShort(data,pos));
 		//先去掉short的字节序，2016-03-24
 //		return (short)(((tmp[1]&0xFF)<<8) | (tmp[0]&0xFF));
 	}
