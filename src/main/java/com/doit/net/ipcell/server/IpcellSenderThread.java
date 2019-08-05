@@ -85,6 +85,8 @@ public class IpcellSenderThread extends Thread {
 		IpcellServiceManager.addCallBack( String.valueOf( IpcellConstants.IPCELL_REBOOT_ACK ),new RebootAckHandler() );
 		IpcellServiceManager.addCallBack( String.valueOf( IpcellConstants.IPCELL_REPORT ),new UeReportHandler() );
 
+		IpcellServiceManager.addCallBack( String.valueOf( IpcellConstants.IPCELL_QUERY_RF_ACK ),new QueryRfAckHandler() );
+
 		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_WORK_FREQ) ,new GetFcnHandler() );
 		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_MCC) ,new GetMccHandler() );
 		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_MNC) ,new GetMncHandler() );
@@ -95,7 +97,8 @@ public class IpcellSenderThread extends Thread {
 
 
 		IpcellServiceManager.addBodyBack( String.valueOf(IpcellConstants.IPCELL_RUN_STATE) ,new GetRunstateHandler() );
-		IpcellMessageCreator.startLocate( IpcellConstants.IP,IpcellConstants.PORT,"460052125622110" );
+		IpcellMessageCreator.queryRfState( IpcellConstants.IP,IpcellConstants.PORT);
+		//IpcellMessageCreator.startLocate( IpcellConstants.IP,IpcellConstants.PORT,"460052125622110" );
 		//IpcellMessageCreator.setRedirect3G( IpcellConstants.IP,IpcellConstants.PORT,"10663");
 		//IpcellMessageCreator.queryInitParam( IpcellConstants.IP,IpcellConstants.PORT );
 		//IpcellMessageCreator.sendHeartBeat( IpcellConstants.IP,IpcellConstants.PORT );
@@ -103,6 +106,9 @@ public class IpcellSenderThread extends Thread {
 		//IpcellMessageCreator.queryPsc( IpcellConstants.IP,IpcellConstants.PORT  );
 		//运行状态 0x0084 0x0080 0x0081
 		//IpcellMessageCreator.setParam( IpcellConstants.IP,IpcellConstants.PORT,"460","01","10688","158","0","321" );
+		//IpcellMessageCreator.openRf( IpcellConstants.IP,IpcellConstants.PORT );
+		//IpcellMessageCreator.closeRf( IpcellConstants.IP,IpcellConstants.PORT );
+
 
 
 	}

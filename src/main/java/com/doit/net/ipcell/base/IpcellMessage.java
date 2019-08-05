@@ -169,8 +169,10 @@ public class IpcellMessage extends BaseHeader implements Serializable{
 	 */
 	public static IpcellMessage decode(byte[] data,IpcellMessage ipcellMessage){
 		data = BytesUtils.ReversEndian( data, 15, true );
-		ByteBuffer wrap = ByteBuffer.wrap( data,13,1 );
-		ipcellMessage.setCode( wrap.get() );
+		int code = getInt(getByte(data,13,1)  );
+		//ByteBuffer wrap = ByteBuffer.wrap( data,13,1 );
+		//ipcellMessage.setCode( wrap.get() );
+		ipcellMessage.setCode( code );
 		return ipcellMessage;
 	}
 
